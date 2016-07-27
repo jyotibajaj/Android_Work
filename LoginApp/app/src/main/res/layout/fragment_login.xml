@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="letsdecode.com.loginapp.LoginFragment"
+    android:background="#BFEFFF">
+
+    <TextView
+        android:id="@+id/textView_userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="80dp"
+        android:text="Enter UserName" />
+
+    <EditText
+        android:id="@+id/editText_username"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/textView_userName"
+        android:layout_toRightOf="@+id/textView_userName" />
+
+    <TextView
+        android:id="@+id/textView_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="126dp"
+        android:text="Enter Password" />
+
+    <EditText
+        android:id="@+id/editText_password"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/textView_password"
+        android:layout_toRightOf="@+id/textView_password"
+        android:inputType="numberPassword" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="190dp"
+        android:text="Login"
+        android:background="#62B1F6"/>
+
+    <Button
+        android:id="@+id/button_signUP"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/button_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Register"
+        android:background="#62B1F6"/>
+
+    <TextView
+        android:id="@+id/textView_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <!--<com.facebook.login.widget.LoginButton-->
+        <!--android:id="@+id/login_button"-->
+        <!--android:layout_width="189dp"-->
+        <!--android:layout_height="130dp"-->
+        <!--android:layout_below="@+id/button_signUP"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="66dp" />-->
+
+
+</RelativeLayout>
