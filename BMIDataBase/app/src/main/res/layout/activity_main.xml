@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#669999"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/weight_EditText"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="50dp"
+        android:hint="@string/weight" />
+
+    <EditText
+        android:id="@+id/height_EditText"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="35dp"
+        android:hint="@string/height" />
+
+
+    <Button
+        android:id="@+id/BMI_Button"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/calculate"
+        android:layout_gravity="center_vertical|center_horizontal"
+        />
+
+
+    <TextView
+        android:id="@+id/displayResult_textView"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+</LinearLayout>

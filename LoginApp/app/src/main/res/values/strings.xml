@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LoginApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">300415136965737</string>
+    <string name="fb_login_protocol_scheme">fb1801765483388090</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Done</string>
+    <string name="not_purchased">Item pending list </string>
+    <string name="title_activity_display_after_login">DisplayAfterLogin</string>
+
+</resources>
