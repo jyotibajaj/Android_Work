@@ -9,9 +9,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".FileList">
 
-    <ListView
+    <TextView
+        android:id="@+id/fileScanning"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/list">
-    </ListView>
+        android:layout_height="100dp"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/scan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:enabled="false"
+            android:text="Start"></Button>
+
+        <Button
+            android:id="@+id/stopScan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:enabled="true"
+            android:text="stop"></Button>
+    </LinearLayout>
+
 </RelativeLayout>
