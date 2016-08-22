@@ -1,90 +1,91 @@
 package letsdecode.com.macyapp;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Environment;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.os.IBinder;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FileList extends Activity {
-
-        private File file;
-        private List<String> myList;
-
+    private final static String TAG = FileList.class.getSimpleName();
+    private File file;
+    private List<String> myList;
+    private static ScanService scanService;
+    private static boolean isBound;
+    Button scan;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListView listView = (ListView) findViewById(R.id.list);
-        myList = new ArrayList<String>();
-        if (Environment.isExternalStorageEmulated()) {
-            String root_sd = Environment.getExternalStorageDirectory().toString();
-            File f = Environment.getExternalStorageDirectory();
-//        Map<String, File> externalLocations = ExternalStorage.getAllStorageLocations();
-//        File sdCard = externalLocations.get(ExternalStorage.SD_CARD);
-//        File externalSdCard = externalLocations.get(ExternalStorage.EXTERNAL_SD_CARD);
-////        file = new File(root_sd + "/external_sd");
-            file = new File(root_sd);
-            File list[] = file.listFiles();
-            list = f.listFiles();
-            for (int i = 0; i < list.length; i++) {
-                myList.add(list[i].getName());
+        Intent intent = new Intent(this, ScanService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        TextView fileScanning = (TextView) findViewById(R.id.fileScanning);
+        mConnection.activity = this;
+        scan = (Button) findViewById(R.id.scan);
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isBound) {
+                    scan.setEnabled(false);
+                    File extStore = Environment.getExternalStorageDirectory();
+                    String path = extStore.getAbsolutePath() + "/";
+                    scanService.startScanning(path);
+                }
             }
+        });
 
-            listView.setAdapter(new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, myList));
-
-        }
-
-        else {
-            throw new NullPointerException("SD card is not mounted");
+        if (Environment.isExternalStorageEmulated()) {
+            File extStore = Environment.getExternalStorageDirectory();
+            String mPath = extStore.getAbsolutePath() + "/";
+            final File f = new File(mPath);
+            String[] ls = null;
+            if (f.isDirectory()) {
+                try {
+                    ls = f.list();
+                    if (ls != null) {
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
+    private static ScanServiceConnection mConnection = new ScanServiceConnection();
+    private static class ScanServiceConnection implements ServiceConnection {
+        public Activity activity;
 
-//    protected void onListItemClick(ListView l, View v, int position, long id) {
-//        super.onListItemClick(l, v, position, id);
-//
-//        File temp_file = new File(file, myList.get(position));
-//
-//        if (!temp_file.isFile()) {
-//            file = new File(file, myList.get(position));
-//            File list[] = file.listFiles();
-//
-//            myList.clear();
-//
-//            for (int i = 0; i < list.length; i++) {
-//                myList.add(list[i].getName());
-//            }
-//            Toast.makeText(getApplicationContext(), file.toString(), Toast.LENGTH_LONG).show();
-//            setListAdapter(new ArrayAdapter<String>(this,
-//                    android.R.layout.simple_list_item_1, myList));
-//
-//        }
-//
-//    }
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            Log.d(TAG, "onServiceConnected");
+            ScanService.LocalBinder binder = (ScanService.LocalBinder) service;
+            scanService = binder.getServiceInstance();
+            isBound = true;
+        }
 
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            Log.d(TAG, "onServiceDisconnected");
+            isBound = false;
+            scanService = null;
+        }
+    };
 
     @Override
     public void onBackPressed() {
-        String parent = file.getParent().toString();
-        file = new File(parent);
-        File list[] = file.listFiles();
-
-        myList.clear();
-
-        for (int i = 0; i < list.length; i++) {
-            myList.add(list[i].getName());
+        super.onBackPressed();
+        Log.d(TAG, "onServiceDisconnected");
+        if (isBound) {
+            scanService.stopScanning();
         }
-        Toast.makeText(getApplicationContext(), parent, Toast.LENGTH_LONG).show();
-//        setListAdapter(new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, myList));
-//
-
     }
-
-
 }
